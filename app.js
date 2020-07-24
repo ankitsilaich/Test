@@ -72,22 +72,27 @@
 
 
   mySwiper.on('transitionEnd', () => {
-    const previousVideo = document.getElementById(mySwiper.activeIndex);
-    if(previousVideo) {
-        previousVideo.pause();
-        previousVideo.currentTime = 0;
-        previousVideo.muted = true;
-    }
-        
-    const nextVideo = document.getElementById(mySwiper.activeIndex + 2);
-    if(nextVideo) {
-        nextVideo.pause();
-        nextVideo.currentTime = 0;
-        nextVideo.muted = true;
-    }
+  
 
     const currentVideo = document.getElementById(mySwiper.activeIndex + 1);
     currentVideo.muted = muted;
-    currentVideo.play();
+    var playPromise = currentVideo.play();
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+            const previousVideo = document.getElementById(mySwiper.activeIndex);
+            if(previousVideo) {
+                previousVideo.pause();
+                previousVideo.currentTime = 0;
+                previousVideo.muted = true;
+            }
+                
+            const nextVideo = document.getElementById(mySwiper.activeIndex + 2);
+            if(nextVideo) {
+                nextVideo.pause();
+                nextVideo.currentTime = 0;
+                nextVideo.muted = true;
+            }
+        })
+      }
   })
 })();
