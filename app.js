@@ -21,7 +21,7 @@
     container.className = "swiper-slide";
     const videoElement = document.createElement("video");
     videoElement.src = videos[index % videos.length];
-    videoElement.controls = true;
+    videoElement.controls = false;
     videoElement.id = index;
     videoElement.autoplay = false;
     videoElement.preload = false;
