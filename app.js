@@ -15,6 +15,7 @@
     "https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4",
   ];
 
+  let muted = true;
 
   const getSlide = (index) => {
     const container = document.createElement("div");
@@ -52,6 +53,24 @@
     },
   });
 
+  const mute = document.getElementById('mute');
+  const muteButton = document.getElementById('muted');
+  const unmuteButton = document.getElementById('unmuted');
+  muteButton.style.display = 'none';
+  mute.addEventListener('click', () => {
+        muted = !muted;
+        if(muted) {
+            muteButton.style.display = 'none';
+            unmuteButton.style.display = 'block';
+        } else {
+            unmuteButton.style.display = 'none';
+            muteButton.style.display = 'block';
+        }
+        const currentVideo = document.getElementById(mySwiper.activeIndex + 1);
+        currentVideo.muted = muted;
+  })  
+
+
   mySwiper.on('transitionEnd', () => {
     const previousVideo = document.getElementById(mySwiper.activeIndex);
     if(previousVideo) {
@@ -68,7 +87,7 @@
     }
 
     const currentVideo = document.getElementById(mySwiper.activeIndex + 1);
-    currentVideo.muted = false;
+    currentVideo.muted = muted;
     currentVideo.play();
   })
 })();
